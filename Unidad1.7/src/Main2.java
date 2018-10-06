@@ -5,8 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import utilidades.Leer;
 
 /*EJERCICIO 7
@@ -33,9 +31,9 @@ public class Main2 {
 		} else {
 
 		}
-		FileWriter escribir;
+		
 		try {
-			escribir = new FileWriter(fichero);
+			FileWriter escribir = new FileWriter(fichero);
 			Leer.mostrarEnPantalla("introduzca frases para terminar escriba fin");
 			BufferedWriter buffer = new BufferedWriter(escribir);
 			do {
@@ -61,7 +59,7 @@ public class Main2 {
 			while ((linea = buffreader.readLine()) != null) {
 				Leer.mostrarEnPantalla(linea);
 			}
-
+			buffreader.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
