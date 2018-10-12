@@ -30,10 +30,10 @@ public class E11 {
 		do {
 			Leer.mostrarEnPantalla("1.-introduce medicos");
 			Leer.mostrarEnPantalla("9.- salir");
-			menu= Leer.pedirEntero("Introduzca opcion","1|9");
+			menu = Leer.pedirEntero("Introduzca opcion", "1|9");
 			switch (menu) {
 			case 1:
-				anio =Leer.pedirEntero("introduce el año de nacimiento");
+				anio = Leer.pedirEntero("introduce el año de nacimiento");
 				nombre = Leer.pedirCadena("introduce el nombre");
 				sueldo = Leer.pedirDouble("introduce sueldo");
 				antiguedad = Leer.pedirEntero("introduce antiguedad");
@@ -41,47 +41,45 @@ public class E11 {
 				medicos.add(medico);
 				break;
 			case 9:
-				
+
 				break;
 
 			default:
 				break;
 			}
-		} while (menu!=9);
-		
+		} while (menu != 9);
+
 		fichero = new File("./medicos");
-		
+
 		escribirFicheros(fichero, medicos);
-		
+
 		leerFichero(fichero);
 	}
 
 	private static void leerFichero(File fichero) {
 		FileInputStream abrir;
+		ObjectInputStream lectura;
 		try {
 			abrir = new FileInputStream(fichero);
-			ObjectInputStream lectura = new ObjectInputStream(abrir);
-			double minimo  = Leer.pedirDouble("introzca ell salario minimo a mostrar");
-			while(true) {
-				Medicos medico = ((Medicos)lectura.readObject());
-				if (medico.getSueldo()>= minimo) {
+			lectura = new ObjectInputStream(abrir);
+			double minimo = Leer.pedirDouble("introzca ell salario minimo a mostrar");
+			while (true) {
+				Medicos medico = ((Medicos) lectura.readObject());
+				if (medico.getSueldo() >= minimo) {
 					Leer.mostrarEnPantalla(medico.toString());
 				}
 			}
-		}	catch (EOFException e) {
-				System.err.print("fin del fichero");
-
+			
+		} catch (EOFException e) {
+			System.err.print("fin del fichero");
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		finally {
 		}
 	}
@@ -89,29 +87,26 @@ public class E11 {
 	private static void escribirFicheros(File fichero, ArrayList<Medicos> medicos) {
 		try {
 			if (!fichero.exists()) {
-					fichero.createNewFile();
-					FileOutputStream abrir = new FileOutputStream(fichero,true);
-					ObjectOutputStream escribir = new ObjectOutputStream(abrir); 
-					for (Medicos med : medicos) {
-						escribir.writeObject(med);
-					}
-					escribir.close();
-				} else {
-					fichero.createNewFile();
-					FileOutputStream abrir = new FileOutputStream(fichero,true);
-					MyObjectOutputStream escribir = new MyObjectOutputStream(abrir); 
-					for (Medicos med : medicos) {
-						escribir.writeObject(med);
-					}
-					escribir.close();
+				fichero.createNewFile();
+				FileOutputStream abrir = new FileOutputStream(fichero, true);
+				ObjectOutputStream escribir = new ObjectOutputStream(abrir);
+				for (Medicos med : medicos) {
+					escribir.writeObject(med);
 				}
-		
-			
+				escribir.close();
+			} else {
+				fichero.createNewFile();
+				FileOutputStream abrir = new FileOutputStream(fichero, true);
+				MyObjectOutputStream escribir = new MyObjectOutputStream(abrir);
+				for (Medicos med : medicos) {
+					escribir.writeObject(med);
+				}
+				escribir.close();
+			}
+
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
