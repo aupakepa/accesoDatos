@@ -24,18 +24,21 @@ public class E15 {
 			System.out.println("Elemento raiz : " + documento.getDocumentElement().getNodeName());
 			NodeList departamentos = documento.getElementsByTagName("departamento");
 			System.out.println("Nodos empleado a recorrer: " + departamentos.getLength());
-			for (int i = 0; i < departamentos.getLength(); i++) {
+			for (int i = 0; i < departamentos.getLength()-1; i++) {
 				Node dep = departamentos.item(i);
 				if (dep.getNodeType() == Node.ELEMENT_NODE) {
 					Element elemento = (Element) dep;
-					NodeList numeros = elemento.getElementsByTagName("departamento");
+					NodeList numeros = elemento.getElementsByTagName("numero");
 					System.out.println("numero : " + getNodo("numero", elemento));
 					for (int j = 0; j < numeros.getLength(); j++) {
 						Node numero = numeros.item(j);
 						if (numero.getNodeType() == Node.ELEMENT_NODE) {
 							elemento = (Element) numero;
 							System.out.println("Nombre: " + getNodo("nombre", elemento));
-							System.out.println("Localidad" + getNodo("localidad", elemento));
+						}
+						if (numero.getNodeType() == Node.ELEMENT_NODE) {
+							elemento = (Element) numero;
+							System.out.println("Localidad: " + getNodo("Localidad", elemento));
 						}
 					}
 				}
