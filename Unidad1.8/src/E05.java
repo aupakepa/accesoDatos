@@ -5,22 +5,25 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import utilidades.Leer;
+
 /*EJERCICIO 5
 Modifica el programa Java anterior, de tal forma que cada vez que se ejecute el programa, 
 vaya añadiendo las nuevas frases introducidas al final del fichero de texto.*/
-public class Main {
+public class E05 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String frase;
 		Scanner teclado = new Scanner(System.in);
-		File fichero = new File(".", "texto");
+		File fichero = new File(".", "E05");
 		if (!fichero.exists()) {
 			crearFichero(fichero);
 		} 
 		FileWriter escribir;
 		try {
 			escribir = new FileWriter(fichero,true);
+			Leer.mostrarEnPantalla("añada frases al fichero. Fin para terminar");
 			do {
 				frase = teclado.nextLine();
 				if (!frase.equals("fin")) {

@@ -11,7 +11,7 @@ El nombre del directorio se pasará al programa desde la línea de comandos al eje
 Modifica el programa anterior para que muestre los nombres de los ficheros de un directorio, 
 cuya extensión coincida con la que se pase como segundo argumento.
 */
-public class principal {
+public class E01b {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

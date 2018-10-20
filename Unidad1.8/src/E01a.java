@@ -9,7 +9,7 @@ También debe averiguar para cada objeto que exista si es un fichero o directorio
 A la hora de visualizar el nombre del fichero o directorio, prueba a usar los diferentes métodos 
 get que ofrece la clase File para ver la diferencia que hay entre cada uno de ellos.
 */
-public class Main {
+public class E01a {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

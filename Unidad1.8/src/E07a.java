@@ -16,12 +16,12 @@ A continuación, el programa visualizará el contenido del fichero,
 frase por frase. Cada vez que se ejecute el programa, 
 se tienen que descartar las frases que ya estaban escritas en el fichero. 
 Realiza este ejercicio usando la clase BufferedReader.*/
-public class Main {
+public class E07a {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String frase ="";
-		File fichero = new File("./texto");
+		File fichero = new File("./E07a");
 		if (!fichero.exists()) {
 			try {
 				fichero.createNewFile();
