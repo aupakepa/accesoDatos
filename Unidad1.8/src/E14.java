@@ -43,7 +43,7 @@ public class E14 {
 				documento.getDocumentElement().appendChild(raiz);
 				dep = (Departamentos) leer.readObject();
 				Element numero = crearElemento("numero", dep.getNumero() + "", raiz, documento);
-				crearElemento("nombre", dep.getNombre(), numero, documento);
+				crearElemento("nombre", dep.getNombre(), numero, documento);//he querido complicar el XML
 				crearElemento("Localidad", dep.getLocalizable(), numero, documento);
 
 			}

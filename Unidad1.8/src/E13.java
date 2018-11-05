@@ -28,7 +28,7 @@ public class E13 {
 		// TODO Auto-generated method stub
 		String nombres[] = { "finanzas", "ventas", "compras", "marketing" };
 		int numero[] = { 10, 20, 30, 45 };
-		String localidad[] = { "zaragoza", "Huesca", "Teruel", "Alcañiz" };
+		String localidad[] = { "zaragoza", "Huesca", "Teruel", "Alcaniz" };
 		Departamentos dep;
 		TreeSet<Departamentos> departamentos = new TreeSet<Departamentos>();
 
@@ -36,16 +36,7 @@ public class E13 {
 		if (!fichero.exists()) {
 			try {
 				fichero.createNewFile();
-				FileOutputStream out = new FileOutputStream(fichero);
-				ObjectOutputStream escribir = new ObjectOutputStream(out);
-				escribir.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} else {
-			try {
-				departamentos = leerFichero(fichero,departamentos);
+				departamentos = leerFichero(fichero, departamentos);
 				FileOutputStream out = new FileOutputStream(fichero);
 				ObjectOutputStream escribir = new ObjectOutputStream(out);
 				for (int i = 0; i < localidad.length; i++) {
@@ -54,7 +45,27 @@ public class E13 {
 				}
 				for (Departamentos dep2 : departamentos) {
 					escribir.writeObject(dep2);
-	
+
+				}
+
+				escribir.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} else {
+			try {
+				departamentos = leerFichero(fichero, departamentos);
+				FileOutputStream out = new FileOutputStream(fichero);
+				ObjectOutputStream escribir = new ObjectOutputStream(out);
+				for (int i = 0; i < localidad.length; i++) {
+					dep = new Departamentos(numero[i], nombres[i], localidad[i]);
+					departamentos.add(dep);
+				}
+				for (Departamentos dep2 : departamentos) {
+					escribir.writeObject(dep2);
+
 				}
 
 				escribir.close();
@@ -77,8 +88,8 @@ public class E13 {
 			FileInputStream in = new FileInputStream(fichero);
 			leer = new ObjectInputStream(in);
 			while (true) {
-				dep = (Departamentos)leer.readObject();
-				if (dep!=null) {
+				dep = (Departamentos) leer.readObject();
+				if (dep != null) {
 					departamentos.add(dep);
 				}
 			}
@@ -98,6 +109,7 @@ public class E13 {
 		}
 		return departamentos;
 	}
+
 	private static void imprimirFichero(File fichero, TreeSet<Departamentos> departamentos) {
 		Departamentos dep;
 		ObjectInputStream leer;
@@ -105,10 +117,10 @@ public class E13 {
 			FileInputStream in = new FileInputStream(fichero);
 			leer = new ObjectInputStream(in);
 			while (true) {
-				dep = (Departamentos)leer.readObject();
-				if (dep!=null) {
+				dep = (Departamentos) leer.readObject();
+				if (dep != null) {
 					Leer.mostrarEnPantalla(dep.toString());
-	
+
 				}
 			}
 		} catch (FileNotFoundException e) {

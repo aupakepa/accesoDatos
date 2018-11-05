@@ -23,7 +23,7 @@ public class E15 {
 			documento.getDocumentElement().normalize();
 			System.out.println("Elemento raiz : " + documento.getDocumentElement().getNodeName());
 			NodeList departamentos = documento.getElementsByTagName("departamento");
-			System.out.println("Nodos empleado a recorrer: " + departamentos.getLength());
+			System.out.println("Nodos empleado a recorrer: " + (departamentos.getLength()-1));
 			for (int i = 0; i < departamentos.getLength()-1; i++) {
 				Node dep = departamentos.item(i);
 				if (dep.getNodeType() == Node.ELEMENT_NODE) {
@@ -34,11 +34,11 @@ public class E15 {
 						Node numero = numeros.item(j);
 						if (numero.getNodeType() == Node.ELEMENT_NODE) {
 							elemento = (Element) numero;
-							System.out.println("Nombre: " + getNodo("nombre", elemento));
+							System.out.println("\tNombre: " + getNodo("nombre", elemento));
 						}
 						if (numero.getNodeType() == Node.ELEMENT_NODE) {
 							elemento = (Element) numero;
-							System.out.println("Localidad: " + getNodo("Localidad", elemento));
+							System.out.println("\tLocalidad: " + getNodo("Localidad", elemento));
 						}
 					}
 				}
