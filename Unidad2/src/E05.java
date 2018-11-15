@@ -11,6 +11,7 @@ siguientes consultas:
  Socios que tienen libros que han superado la fecha de fin de préstamo.*/
 import java.sql.*;
 
+
 import utilidades.Leer;
 public class E05 {
 
@@ -20,6 +21,8 @@ public class E05 {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/ejemplo1", "root","root");
 		Statement sentencia = conexion.createStatement();
+		ResultSet resul;
+		String sql;
 		int menu=-1;
 		do {
 			Leer.mostrarEnPantalla("1. Listado de todos los libros");
@@ -27,16 +30,15 @@ public class E05 {
 			Leer.mostrarEnPantalla("3. Listado de todos los préstamos.");
 			Leer.mostrarEnPantalla("4. Listado de libros prestados actualmente.");
 			Leer.mostrarEnPantalla("5. Número de libros prestamos a un socio determinado.");
-			Leer.mostrarEnPantalla("6. Listado de libros prestados actualmente.");
-			Leer.mostrarEnPantalla("7. Libros que han superado la fecha de fin de préstamo.");
-			Leer.mostrarEnPantalla("8. Socios que tienen libros que han superado la fecha de fin de préstamo.");
+			Leer.mostrarEnPantalla("6. Libros que han superado la fecha de fin de préstamo.");
+			Leer.mostrarEnPantalla("7. Socios que tienen libros que han superado la fecha de fin de préstamo.");
 			Leer.mostrarEnPantalla("9. Salir.\r\n");
 			
 			menu = Leer.pedirEntero("Introducir una opcion de menu");
 			switch (menu) {
 			case 1:
-				String sql ="select * from libro";
-				ResultSet resul = sentencia.executeQuery(sql);
+				sql ="select * from libro";
+				resul = sentencia.executeQuery(sql);
 				
 				while (resul.next()) {
 					System.out.printf("%d, %s, %s, %s, %d, %s, %d, %d\n", resul.getInt(1),
@@ -45,20 +47,81 @@ public class E05 {
 				Leer.mostrarEnPantalla("------------------------------");
 				break;
 			case 2:
+				sql ="select * from socio";
+				resul = sentencia.executeQuery(sql);
+				
+				while (resul.next()) {
+					System.out.printf("%d, %s, %s, %s, %s, %s\n", resul.getInt(1),
+					resul.getString(2), resul.getString(3),resul.getDate(4),resul.getString(5),resul.getString(6));
+					}
+				Leer.mostrarEnPantalla("------------------------------");
+				resul.close();
 				break;
 			case 3:
+				sql ="select * from prestamo";
+				resul = sentencia.executeQuery(sql);
+				
+				while (resul.next()) {
+					System.out.printf("%d, %d, %s, %s\n", resul.getInt(1),
+					resul.getInt(2), resul.getDate(3),resul.getDate(4));
+					}
+				Leer.mostrarEnPantalla("------------------------------");
+				resul.close();
 				break;			
 			case 4:
+				sql ="select distinct codigolibro, titulo from libro inner join prestamo using(codigolibro) where fechafin > '2010-11-02'";
+				resul = sentencia.executeQuery(sql);
+				
+				while (resul.next()) {
+					System.out.printf("%s, %s\n", resul.getInt(1),
+					resul.getString(2));
+					}
+				Leer.mostrarEnPantalla("------------------------------");
+				resul.close();
 					break;			
 			case 5:
+				sql ="select count(*) from  prestamo where codigosocio =102";
+				resul = sentencia.executeQuery(sql);
+				
+				while (resul.next()) {
+					System.out.printf("%d,\n", resul.getInt(1));
+					}
+				Leer.mostrarEnPantalla("------------------------------");
+				resul.close();
 						break;
+			case 6:
+				sql ="select * from  prestamo where fechafin > ADDDATE(fechainicio, INTERVAL 10 DAY)";
+				resul = sentencia.executeQuery(sql);
+				
+				while (resul.next()) {
+					System.out.printf("%d, %d, %s, %s\n", resul.getInt(1),
+					resul.getInt(2), resul.getDate(3),resul.getDate(4));
+					}
+				Leer.mostrarEnPantalla("------------------------------");
+				resul.close();
+						break;						
+						
+			case 7:
+				sql ="select distinct codigosocio, nombre, apellidos from  prestamo inner join socio using (codigosocio) where fechafin > ADDDATE(fechainicio, INTERVAL 10 DAY)";
+				resul = sentencia.executeQuery(sql);
+				
+				while (resul.next()) {
+					System.out.printf("%d, %s, %s\n", resul.getInt(1), resul.getString(2),resul.getString(3));
+					}
+				Leer.mostrarEnPantalla("------------------------------");
+				resul.close();
+						break;							
+						
+						
 			default:
 				break;
 			}
 			
 		} while (menu != 9);
 		
-		
+		sentencia.close();
+		conexion.close();
+
 	} catch (ClassNotFoundException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -66,7 +129,8 @@ public class E05 {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	
+	finally {
+	}
 	}
 
 }
