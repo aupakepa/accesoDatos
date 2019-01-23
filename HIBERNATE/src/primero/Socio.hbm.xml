@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 07-dic-2018 17:06:26 by Hibernate Tools 5.2.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="librosprueba" dynamic-insert="false" dynamic-update="false" mutable="true" name="primero.Socio" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="socio">
+        <id name="codigoSocio" type="int">
+            <column name="CodigoSocio"/>
+            <generator class="assigned"/>
+        </id>
+        <property generated="never" lazy="false" name="nombre" optimistic-lock="true" type="string" unique="false">
+            <column length="50" name="Nombre"/>
+        </property>
+        <property generated="never" lazy="false" name="apellidos" optimistic-lock="true" type="string" unique="false">
+            <column length="50" name="Apellidos"/>
+        </property>
+        <property generated="never" lazy="false" name="fechaNac" optimistic-lock="true" type="date" unique="false">
+            <column length="10" name="FechaNac"/>
+        </property>
+        <property generated="never" lazy="false" name="domicilio" optimistic-lock="true" type="string" unique="false">
+            <column length="50" name="Domicilio"/>
+        </property>
+        <property generated="never" lazy="false" name="telefono" optimistic-lock="true" type="string" unique="false">
+            <column length="50" name="Telefono"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="prestamos" optimistic-lock="true" sort="unsorted" table="prestamo">
+            <key on-delete="noaction">
+                <column name="CodigoSocio" not-null="true"/>
+            </key>
+            <one-to-many class="primero.Prestamo" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>

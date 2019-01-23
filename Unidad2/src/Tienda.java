@@ -151,26 +151,28 @@ public class Tienda {
 
 	private static void introducirVenta(Conexion conexion, int id, String fecha, int codigoProducto, int codigoCliente,
 			int cantidad) {
-		/*
-		 * String sql = "INSERT INTO VENTA VALUES (?,?,?,?,?)"; 
-		 * 
-		 * try { 
-		 * PreparedStatement sentencia = conexion.getConexion().prepareStatement(sql);
-		 * sentencia.setInt(1, id); 
-		 * sentencia.setString(2,fecha);
-		 * sentencia.setInt(3,codigoCliente); 
-		 * sentencia.setInt(4, codigoProducto); 
-		 * sentencia.setInt(5,cantidad);
-		 * } 
-		 * catch (SQLException e) { 
-		 * if (e.getErrorCode() == 1062) {
-		 * System.out.println("Clave primaria duplicada"); 
-		 * }
-		 * System.err.println(e.getMessage()); 
-		 * System.err.println(e.getSQLState());
-		 * System.err.println(e.getErrorCode()); 
-		 * }
-		 */
+		
+		 String sql = "INSERT INTO VENTA VALUES (?, ?, ?, ?, ?)"; 
+		  
+		 try { 
+		 PreparedStatement sentencia = conexion.getConexion().prepareStatement(sql);
+		 sentencia.setInt(1, id); 
+		 sentencia.setString(2,fecha);
+		 sentencia.setInt(3,codigoCliente); 
+		 sentencia.setInt(4, codigoProducto); 
+		 sentencia.setInt(5,cantidad);
+		 sentencia.executeUpdate();
+		 } 
+		 catch (SQLException e) { 
+		 if (e.getErrorCode() == 1062) {
+		 System.out.println("Clave primaria duplicada"); 
+		 }
+		 System.err.println(e.getMessage()); 
+		 System.err.println(e.getSQLState());
+		 System.err.println(e.getErrorCode()); 
+		}
+	}
+		 /*
 		StringBuilder sql = new StringBuilder();
 		sql.append("INSERT INTO VENTA VALUES (");
 		sql.append(id);
@@ -191,7 +193,7 @@ public class Tienda {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	private static int pedirCantidad() {
 		int cantidad;

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 12-dic-2018 23:44:55 by Hibernate Tools 5.2.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="publicaciones" dynamic-insert="false" dynamic-update="false" mutable="true" name="primero.Publicaciones" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="publicaciones">
+        <id name="idpublicacion" type="int">
+            <column name="Idpublicacion"/>
+            <generator class="assigned"/>
+        </id>
+        <many-to-one class="primero.Fotos" embed-xml="true" fetch="select" insert="true" name="fotos" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="Idfoto" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="primero.Mediocomunicacion" embed-xml="true" fetch="select" insert="true" name="mediocomunicacion" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="Idmedio" not-null="true"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="fechaPublicacion" optimistic-lock="true" type="date" unique="false">
+            <column length="10" name="FechaPublicacion"/>
+        </property>
+        <property generated="never" lazy="false" name="piePublicacion" optimistic-lock="true" type="string" unique="false">
+            <column length="50" name="piePublicacion"/>
+        </property>
+    </class>
+</hibernate-mapping>

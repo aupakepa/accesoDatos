@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 07-dic-2018 17:06:26 by Hibernate Tools 5.2.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="librosprueba" dynamic-insert="false" dynamic-update="false" mutable="true" name="primero.Libro" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="libro">
+        <id name="codigoLibro" type="int">
+            <column name="CodigoLibro"/>
+            <generator class="assigned"/>
+        </id>
+        <property generated="never" lazy="false" name="titulo" optimistic-lock="true" type="string" unique="false">
+            <column length="50" name="Titulo"/>
+        </property>
+        <property generated="never" lazy="false" name="autor" optimistic-lock="true" type="string" unique="false">
+            <column length="50" name="Autor"/>
+        </property>
+        <property generated="never" lazy="false" name="editorial" optimistic-lock="true" type="string" unique="false">
+            <column length="50" name="Editorial"/>
+        </property>
+        <property generated="never" lazy="false" name="anio" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="Anio"/>
+        </property>
+        <property generated="never" lazy="false" name="isbn" optimistic-lock="true" type="string" unique="false">
+            <column length="15" name="ISBN" not-null="true" unique="true"/>
+        </property>
+        <property generated="never" lazy="false" name="ejemplares" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="Ejemplares"/>
+        </property>
+        <property generated="never" lazy="false" name="paginas" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="Paginas"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="prestamos" optimistic-lock="true" sort="unsorted" table="prestamo">
+            <key on-delete="noaction">
+                <column name="CodigoLibro" not-null="true"/>
+            </key>
+            <one-to-many class="primero.Prestamo" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>

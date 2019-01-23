@@ -57,7 +57,7 @@ public class Tienda {
 		int menu;
 		Conexion conexion = null;
 		int id ;
-		String fecha;
+		Fecha fecha;// Para PreparedSyatement he necesitado ponerla asi
 		int codigoProducto;
 		int codigoCliente;
 		int cantidad;
@@ -149,34 +149,37 @@ public class Tienda {
 		}
 	}
 
-	private static void introducirVenta(Conexion conexion, int id, String fecha, int codigoProducto, int codigoCliente,
-			int cantidad) {//No me ha funcionado el PreparedStatement y no se porque pero no tengo tiempo hasta el jueves
-		/*
-		 * String sql = "INSERT INTO VENTA VALUES (?,?,?,?,?)"; 
-		 * 
-		 * try { 
-		 * PreparedStatement sentencia = conexion.getConexion().prepareStatement(sql);
-		 * sentencia.setInt(1, id); 
-		 * sentencia.setString(2,fecha);
-		 * sentencia.setInt(3,codigoCliente); 
-		 * sentencia.setInt(4, codigoProducto); 
-		 * sentencia.setInt(5,cantidad);
-		 * } 
-		 * catch (SQLException e) { 
-		 * if (e.getErrorCode() == 1062) {
-		 * System.out.println("Clave primaria duplicada"); 
-		 * }
-		 * System.err.println(e.getMessage()); 
-		 * System.err.println(e.getSQLState());
-		 * System.err.println(e.getErrorCode()); 
-		 * }
-		 */
-		StringBuilder sql = new StringBuilder();
+	private static void introducirVenta(Conexion conexion, int id, Fecha fecha, int codigoProducto, int codigoCliente,
+			int cantidad) {//La verdad NO ME GUSTA esta clase pero por variar un poco
+		
+		String sql = "INSERT INTO VENTA VALUES (?,?,?,?,?)"; 
+		  //Las clases date o calendar no las he usado pero es que no tengo tiempo
+		 try { 
+		 PreparedStatement sentencia = conexion.getConexion().prepareStatement(sql);
+		 sentencia.setInt(1, id); 
+		 sentencia.setString(2,fecha.toString());
+		 sentencia.setInt(3,codigoCliente); 
+		 sentencia.setInt(4, codigoProducto); 
+		 sentencia.setInt(5,cantidad);
+		 sentencia.executeUpdate();
+		 sentencia.close();
+		  } 
+		 catch (SQLException e) { 
+		 if (e.getErrorCode() == 1062) {
+		 System.out.println("Clave primaria duplicada"); 
+		 }
+		 System.err.println(e.getMessage()); 
+		 System.err.println(e.getSQLState());
+		 System.err.println(e.getErrorCode()); 
+		 }
+	}
+		 
+		/*StringBuilder sql = new StringBuilder();//me resulta mas sencillo asi De hecho con my sqlite no lo guarda igual
 		sql.append("INSERT INTO VENTA VALUES (");
 		sql.append(id);
-		sql.append(",");
-		sql.append(fecha);
-		sql.append(",");
+		sql.append(",'");
+		sql.append(fecha.toString());//Lo he cambiado para que sea lo mas compateible con PreparedStatement
+		sql.append("',");
 		sql.append(codigoCliente);
 		sql.append(",");
 		sql.append(codigoProducto);
@@ -192,7 +195,7 @@ public class Tienda {
 			e.printStackTrace();
 		}
 	}
-
+*/
 	private static int pedirCantidad() {
 		int cantidad;
 		do {
@@ -204,7 +207,7 @@ public class Tienda {
 		return cantidad;
 	}
 
-	private static String pedirFecha() {
+	private static Fecha pedirFecha() {
 		Fecha fecha = null;
 		do {
 			fecha = new Fecha(Leer.pedirEntero("introduce el dia"), Leer.pedirEntero("introduce el mes"),
@@ -215,8 +218,8 @@ public class Tienda {
 
 		} while (fecha.getDia() == null);
 
-		String fecha1 = fecha.toString();
-		return fecha1;
+		//String fecha1 = fecha.toString(); Para concatenar string en principio devolvia un string
+		return fecha;
 	}
 
 	private static int pedirIdVenta(Conexion conexion) {
@@ -255,7 +258,7 @@ public class Tienda {
 			codigoCliente = Leer.pedirEntero("introduce el id de cliente");
 			existe = comprobarCliente(conexion, codigoCliente);
 			if (existe == false) {
-				Leer.mostrarEnPantalla("El cliente se�alado no existe");
+				Leer.mostrarEnPantalla("El cliente señalado no existe");
 			}
 		} while (!existe);
 		return codigoCliente;
@@ -311,7 +314,7 @@ public class Tienda {
 		boolean existe = false;
 		try {
 			ResultSet resul = conexion.getSentencia().executeQuery("select * from producto");
-			while (resul.next()) {
+			while (resul.next() && existe == false) {
 				if (resul.getInt(1) == codigoProducto) {
 					existe = true;
 				}
@@ -327,7 +330,7 @@ public class Tienda {
 		boolean existe = false;
 		try {
 			ResultSet resul = conexion.getSentencia().executeQuery("select * from venta");
-			while (resul.next()) {
+			while (resul.next() && existe == false) {
 				if (resul.getInt(1) == id) {
 					existe = true;
 				}
@@ -343,7 +346,7 @@ public class Tienda {
 		boolean existe = false;
 		try {
 			ResultSet resul = conexion.getSentencia().executeQuery("select * from cliente");
-			while (resul.next()) {
+			while (resul.next() && existe == false) {
 				if (resul.getInt(1) == codigoCliente) {
 					existe = true;
 				}
@@ -406,7 +409,6 @@ public class Tienda {
 				System.err.println("error code =" + e.getErrorCode());
 			}
 			e.getErrorCode();
-			e.getMessage();
 
 
 			// TODO Auto-generated catch block

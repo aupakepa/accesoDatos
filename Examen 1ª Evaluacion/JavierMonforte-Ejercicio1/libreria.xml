@@ -1,0 +1,16 @@
+<list>
+  <Libros>
+    <idLibro>1</idLibro>
+    <titulo>milan kundera</titulo>
+    <autor>la insoportable levedad</autor>
+    <ejemplares>3</ejemplares>
+    <Editorial>yo</Editorial>
+  </Libros>
+  <Libros>
+    <idLibro>1</idLibro>
+    <titulo>En el nombre de la rosa</titulo>
+    <autor>Humberto Eco</autor>
+    <ejemplares>5</ejemplares>
+    <Editorial>kkd</Editorial>
+  </Libros>
+</list>

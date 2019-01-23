@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 29-nov-2018 18:50:03 by Hibernate Tools 5.2.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="tienda" dynamic-insert="false" dynamic-update="false" mutable="true" name="primero.Venta" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="venta">
+        <id name="idventa" type="int">
+            <column name="IDVENTA"/>
+            <generator class="assigned"/>
+        </id>
+        <many-to-one class="primero.Cliente" embed-xml="true" fetch="select" insert="true" name="cliente" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="IDCLIENTE"/>
+        </many-to-one>
+        <many-to-one class="primero.Producto" embed-xml="true" fetch="select" insert="true" name="producto" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="IDPRODUCTO"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="fechaventa" optimistic-lock="true" type="date" unique="false">
+            <column length="10" name="FECHAVENTA" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="cantidad" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="CANTIDAD"/>
+        </property>
+    </class>
+</hibernate-mapping>

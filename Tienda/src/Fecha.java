@@ -196,7 +196,7 @@ public class Fecha {
 	 */
 	@Override
 	public String toString() {
-		return "'"+anio+"-"+mes+"-"+dia+"'";
+		return anio+"-"+mes+"-"+dia;
 	}
 	/**
 	 * @return String fecha en formato texto
