@@ -119,6 +119,7 @@ public class Coleccion {
 					System.out.println("--------------------------------------------");
 					System.out.println((String) r.getContent());
 				}
+				System.out.println("--------------------------------------------");
 			}
 		} catch (XMLDBException e) {
 			// TODO Auto-generated catch block
